@@ -12,6 +12,8 @@
 
 The result doesn't look good, but this may because of the differences of the FA module.(but why the mIoU decreased after i added the SISR path)
 
+**Currently the code still uses normalization in FA module. If you want to avoid using them, please comment line 16,18,23,25 in 'utils/fa_loss.py'**
+
 Please imform me if you have any questions about the code.
 
 
