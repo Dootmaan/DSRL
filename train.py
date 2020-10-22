@@ -289,7 +289,7 @@ def main():
     if args.lr is None:
         lrs = {
             'coco': 0.1,
-            'cityscapes': 0.0025,
+            'cityscapes': 0.005,
             'pascal': 0.007,
         }
         args.lr = lrs[args.dataset.lower()] / (4 * len(args.gpu_ids)) * args.batch_size
