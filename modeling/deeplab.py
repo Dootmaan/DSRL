@@ -43,9 +43,9 @@ class DeepLab(nn.Module):
         self.decoder = build_decoder(num_classes, backbone, BatchNorm)
         self.sr_decoder = build_sr_decoder(num_classes,backbone,BatchNorm)
         self.pointwise = torch.nn.Sequential(
-            torch.nn.Conv2d(num_classes,3,1),
-            torch.nn.BatchNorm2d(3),  #添加了BN层
-            torch.nn.ReLU(inplace=True) 
+            torch.nn.Conv2d(num_classes,num_classes,1),
+            torch.nn.BatchNorm2d(num_classes),  #添加了BN层
+            torch.nn.ReLU(inplace=True)
         )
 
         self.up_sr_1 = nn.ConvTranspose2d(num_classes, num_classes, 2, stride=2) 
@@ -77,7 +77,7 @@ class DeepLab(nn.Module):
         x_sr_up=self.up_edsr_3(x_sr_up)
         x_sr_up=self.up_conv_last(x_sr_up)
 
-        return x_seg_up,x_sr_up,self.pointwise(x_seg_up),x_sr_up 
+        return x_seg_up,x_sr_up,self.pointwise(x_seg),x_sr
 
     def freeze_bn(self):
         for m in self.modules():
