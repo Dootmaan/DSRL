@@ -1,5 +1,15 @@
 # Dual super-resolution learning for semantic segmentation
 
+# 2020-10-30 Good News! I achieved an mIoU of 0.6787 in the newest experiment!
+- So the FA module should be places after each path's final output.
+- The FTM should be 19 channel -> 3 channel
+- Hyper-Parameter fine-tuneing
+It's amazing that the final model converges at a extremely fast speed. Now the codes are all ready and you don't have to worry about anything. Just clone this repo and run train.py!
+
+
+---
+# 2020-10-
+
 **I implemented the framework proposed in this paper since the authors' code is still under legal scan and i just can't wait to see the results. This repo is based on Deeplab v3+ and Cityscapes, and i still have problems about the FA module.**
 
 - so the code is runnable? yes. just run train.py directly and you can see DSRL starts training.(of course change the dataset path. See insturctions in the Deeplab v3+ part below.)
@@ -7,6 +17,7 @@
     - 19 channel SSSR output -> feature transform module -> 3 channel output -> calculate FAloss with 3 channel SISR output. Result is like a disaster
     - 19 channel SSSR last_conv(see the code and you'll know what it is) feature -> feature transform module -> calculate FAloss with 19 channel SISR last_conv feature. still disaster.
     - 19 channel SSSR last_conv(see the code and you'll know what it is) feature -> feature transform module -> calculate FAloss with 19 channel SISR last_conv feature, but no more normalization in the FA module. Seems not bad, but still cannot surpass simple original Deeplab v3+
+    - Besides, this project use a square input(default 512\*512) which is cropped from the original image.
 
 - so my results? mIoU about 0.6669 when use the original Deeplab v3+. 0.6638 when i add the SISR path but no FA module. and about 0.62 after i added the FA module.
 
