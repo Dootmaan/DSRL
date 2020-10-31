@@ -3,7 +3,7 @@
 # 2020-10-31 Good News! I achieved an mIoU of 0.6787 in the newest experiment(the experiment is still running and the final mIoU may be even higher)!
 - So the FA module should be places after each path's final output.
 - The FTM should be 19 channel -> 3 channel
-- Hyper-Parameter fine-tuneing
+- Hyper-Parameter fine-tuning
 
 It's amazing that the final model converges at a extremely fast speed. Now the codes are all ready and you don't have to worry about anything. Just clone this repo and run train.py!
 
