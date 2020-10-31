@@ -4,6 +4,7 @@
 - So the FA module should be places after each path's final output.
 - The FTM should be 19 channel -> 3 channel
 - Hyper-Parameter fine-tuneing
+
 It's amazing that the final model converges at a extremely fast speed. Now the codes are all ready and you don't have to worry about anything. Just clone this repo and run train.py!
 
 And thanks for the reminder of @XinruiYuan, currently this repo also differs from the original paper in the architecture of SISR path. I will be working on it after finishing my homework.
