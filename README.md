@@ -1,9 +1,9 @@
 # Dual super-resolution learning for semantic segmentation
 
-# 2020-12-15 Pretrained Weights Uploaded
+## 2020-12-15 Pretrained Weights Uploaded
 - See [Google Drive](https://drive.google.com/file/d/1gm7apQ05Nh8nuVMljmeXfzACnlHurjc0/view?usp=sharing) (Please note that you don't have to unzip this file.)
 
-# 2020-10-31 Good News! I achieved an mIoU of 0.6787 in the newest experiment(the experiment is still running and the final mIoU may be even higher)!
+## 2020-10-31 Good News! I achieved an mIoU of 0.6787 in the newest experiment(the experiment is still running and the final mIoU may be even higher)!
 - So the FA module should be places after each path's final output.
 - The FTM should be 19 channel -> 3 channel
 - Hyper-Parameter fine-tuning
@@ -13,10 +13,7 @@ It's amazing that the final model converges at a extremely fast speed. Now the c
 And thanks for the reminder of @XinruiYuan, currently this repo also differs from the original paper in the architecture of SISR path. I will be working on it after finishing my homework.
 
 
-
----
-
-# 2020-10-22 First commit
+## 2020-10-22 First commit
 
 **I implemented the framework proposed in this paper since the authors' code is still under legal scan and i just can't wait to see the results. This repo is based on Deeplab v3+ and Cityscapes, and i still have problems about the FA module.**
 
@@ -37,6 +34,8 @@ Please imform me if you have any questions about the code.
 
 
 below are discriptions about Deeplab v3+(from the original repo).
+
+---
 
 # pytorch-deeplab-xception
 
