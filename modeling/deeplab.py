@@ -7,25 +7,6 @@ from modeling.decoder import build_decoder
 from modeling.backbone import build_backbone
 from modeling.sr_decoder import build_sr_decoder
 
-class EDSRConv(torch.nn.Module):
-    def __init__(self, in_ch, out_ch):
-        super(EDSRConv, self).__init__()
-        self.conv = torch.nn.Sequential(
-            torch.nn.Conv2d(in_ch, out_ch, 3, padding=1),
-            torch.nn.ReLU(inplace=True),
-            torch.nn.Conv2d(out_ch, out_ch, 3, padding=1),
-            )
-
-        self.residual_upsampler = torch.nn.Sequential(
-            torch.nn.Conv2d(in_ch, out_ch, kernel_size=1, bias=False),
-            )
-
-        # self.relu=torch.nn.ReLU(inplace=True)
-
-    def forward(self, input):
-        return self.conv(input)+self.residual_upsampler(input)
-
-
 class DeepLab(nn.Module):
     def __init__(self, backbone='resnet', output_stride=16, num_classes=21,
                  sync_bn=True, freeze_bn=False):
@@ -48,14 +29,15 @@ class DeepLab(nn.Module):
             torch.nn.ReLU(inplace=True)
         )
 
-        self.up_sr_1 = nn.ConvTranspose2d(64, 64, 2, stride=2) 
-        self.up_edsr_1 = EDSRConv(64,64)
-        self.up_sr_2 = nn.ConvTranspose2d(64, 32, 2, stride=2) 
-        self.up_edsr_2 = EDSRConv(32,32)
-        self.up_sr_3 = nn.ConvTranspose2d(32, 16, 2, stride=2) 
-        self.up_edsr_3 = EDSRConv(16,16)
-        self.up_conv_last = nn.Conv2d(16,3,1)
-
+        self.sr_conv=torch.nn.Sequential(
+            torch.nn.Conv2d(256,128,5,1,2),
+            torch.nn.Tanh(),
+            torch.nn.Conv2d(128,64,3,1,1),
+            torch.nn.Tanh(),
+            torch.nn.Conv2d(64,12,3,1,1),
+            torch.nn.PixelShuffle(2),
+            torch.nn.Sigmoid()
+        )
 
         self.freeze_bn = freeze_bn
 
@@ -67,16 +49,9 @@ class DeepLab(nn.Module):
         x_seg_up = F.interpolate(x_seg, size=input.size()[2:], mode='bilinear', align_corners=True)
         x_seg_up = F.interpolate(x_seg_up,size=[2*i for i in input.size()[2:]], mode='bilinear', align_corners=True)
 
-        x_sr_up = self.up_sr_1(x_sr)
-        x_sr_up=self.up_edsr_1(x_sr_up)
-
-        x_sr_up = self.up_sr_2(x_sr_up)
-        x_sr_up=self.up_edsr_2(x_sr_up)
-
-        x_sr_up = self.up_sr_3(x_sr_up)
-        x_sr_up=self.up_edsr_3(x_sr_up)
-        x_sr_up=self.up_conv_last(x_sr_up)
-
+        x_sr_up = F.interpolate(x_sr, size=input.size()[2:], mode='bilinear', align_corners=True)
+        x_sr_up = self.sr_conv(x_sr_up)
+        
         return x_seg_up,x_sr_up,self.pointwise(x_seg_up),x_sr_up
 
     def freeze_bn(self):

@@ -1,6 +1,10 @@
 # Dual super-resolution learning for semantic segmentation
 
-## 2020-12-15 Pretrained Weights Uploaded
+## 2020-12-29 New branch: subpixel
+- In this new branch, SISR path changes to follow the design of *Real-Time Single Image and Video Super-Resolution Using an Efficient Sub-Pixel Convolutional Neural Network, CVPR 2016*. The main branch still uses Deconv so if you prefer the older version you can simply ignore this update.
+- I haven't run a full test on this new framework yet so I'm still not sure about it's performance on validation set. Please let me know if you find this new framework performs better. Thank you. :)
+
+## 2020-12-15 Pretrained Weights Uploaded (Only for the main branch)
 - See [Google Drive](https://drive.google.com/file/d/1gm7apQ05Nh8nuVMljmeXfzACnlHurjc0/view?usp=sharing) (Please note that you don't have to unzip this file.)
 
 ## 2020-10-31 Good News! I achieved an mIoU of 0.6787 in the newest experiment(the experiment is still running and the final mIoU may be even higher)!
