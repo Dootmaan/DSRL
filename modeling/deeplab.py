@@ -30,11 +30,11 @@ class DeepLab(nn.Module):
         )
 
         self.sr_conv=torch.nn.Sequential(
-            torch.nn.Conv2d(256,128,5,1,2),
+            torch.nn.Conv2d(64,64,5,1,2),
             torch.nn.Tanh(),
-            torch.nn.Conv2d(128,64,3,1,1),
+            torch.nn.Conv2d(64,32,3,1,1),
             torch.nn.Tanh(),
-            torch.nn.Conv2d(64,12,3,1,1),
+            torch.nn.Conv2d(32,12,3,1,1),
             torch.nn.PixelShuffle(2),
             torch.nn.Sigmoid()
         )
