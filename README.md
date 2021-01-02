@@ -11,6 +11,7 @@ Happy new year! The *2020-12-29 update* of SISR with subpixel conv performs bad 
 
 ## 2020-12-15 Pretrained Weights Uploaded (Only for the main branch)
 - See [Google Drive](https://drive.google.com/file/d/1gm7apQ05Nh8nuVMljmeXfzACnlHurjc0/view?usp=sharing) (Please note that you don't have to unzip this file.)
+- Use the pretrained weights by `train.py --resume 'path/to/weights'`
 
 ## 2020-10-31 Good News! I achieved an mIoU of 0.6787 in the newest experiment(the experiment is still running and the final mIoU may be even higher)!
 - So the FA module should be places after each path's final output.
