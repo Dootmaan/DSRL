@@ -36,7 +36,7 @@ class DeepLab(nn.Module):
             torch.nn.Tanh(),
             torch.nn.Conv2d(32,12,3,1,1),
             torch.nn.PixelShuffle(2),
-            torch.nn.Sigmoid()
+            # torch.nn.Sigmoid()
         )
 
         self.freeze_bn = freeze_bn

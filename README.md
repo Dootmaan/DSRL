@@ -1,11 +1,18 @@
 # Dual super-resolution learning for semantic segmentation
 
+## 2021-01-02 Subpixel update
+Happy new year! I have tested several versions of SISR with subpixel and found out that the SISR path still need to be a little different from the design in paper *Real-Time Single Image and Video Super-Resolution Using an Efficient Sub-Pixel Convolutional Neural Network*. The former subpixel version is depreciated now, so if you would like to try subpixel SISR please make sure to update your code.
+- Firstly I let last_conv outputs a 3 channel feature and let that be the input of subpixel conv(including a 5x5 conv, two 3x3 conv and a pixelshuffle layer). However, the experiment result will not surpass an mIoU of 0.3.
+- Then i directly removed the last_conv,which makes the decoder become what i thought exactly the design of the ESPCN paper. However the experiment shows that it can only achieve an mIoU around 0.22.
+- So I deicided to bring last_conv back, and I tried many different knids of design on it. In the end it becomes a 304-256-128-64 conv, with subpixel module being a 64-32-12 conv. The pixelshuffle layer will then make the 12 channel feature into a 2x larger 3 channel output. This design achieves an mIoU of 0.6689, which is slightly higher than original Deeplab v3+. (I'm not sure whether this is the same design of SISR in the DSRL paper, since the authors still haven't upload their code)
+
 ## 2020-12-29 New branch: subpixel
 - In this new branch, SISR path changes to follow the design of *Real-Time Single Image and Video Super-Resolution Using an Efficient Sub-Pixel Convolutional Neural Network, CVPR 2016*. The main branch still uses Deconv so if you prefer the older version you can simply ignore this update.
 - I haven't run a full test on this new framework yet so I'm still not sure about it's performance on validation set. Please let me know if you find this new framework performs better. Thank you. :)
 
 ## 2020-12-15 Pretrained Weights Uploaded (Only for the main branch)
 - See [Google Drive](https://drive.google.com/file/d/1gm7apQ05Nh8nuVMljmeXfzACnlHurjc0/view?usp=sharing) (Please note that you don't have to unzip this file.)
+- Use the pretrained weights by `train.py --resume 'path/to/weights'`
 
 ## 2020-10-31 Good News! I achieved an mIoU of 0.6787 in the newest experiment(the experiment is still running and the final mIoU may be even higher)!
 - So the FA module should be places after each path's final output.
