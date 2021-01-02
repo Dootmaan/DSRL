@@ -1,5 +1,8 @@
 # Dual super-resolution learning for semantic segmentation
 
+## 2020-01-02 Subpixel Update
+Happy new year! The former version of subpixel SISR performs bad in my experiment so I did some change to it. Click [here](https://github.com/Dootmaan/DSRL/tree/subpixel) to see more.
+
 ## 2020-12-29 New branch: subpixel
 - In this new branch, SISR path changes to follow the design of *Real-Time Single Image and Video Super-Resolution Using an Efficient Sub-Pixel Convolutional Neural Network, CVPR 2016*. The main branch still uses Deconv so if you prefer the older version you can simply ignore this update.
 - I haven't run a full test on this new framework yet so I'm still not sure about it's performance on validation set. Please let me know if you find this new framework performs better. Thank you. :)
