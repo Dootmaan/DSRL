@@ -108,9 +108,6 @@ class Trainer(object):
             self.scheduler(self.optimizer, i, epoch, self.best_pred)
             self.optimizer.zero_grad()
             output,output_sr,fea_seg,fea_sr = self.model(input_img)
-            # del fea_seg
-            # del fea_sr
-            # 加入FALoss
             loss = self.criterion(output, target)+w_sr*torch.nn.MSELoss()(output_sr,image)+w_fa*FALoss()(fea_seg,fea_sr)
             loss.backward()
             self.optimizer.step()

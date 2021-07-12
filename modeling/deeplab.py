@@ -7,6 +7,8 @@ from modeling.decoder import build_decoder
 from modeling.backbone import build_backbone
 from modeling.sr_decoder import build_sr_decoder
 
+from modeling.Involution import Involution2d
+
 class EDSRConv(torch.nn.Module):
     def __init__(self, in_ch, out_ch):
         super(EDSRConv, self).__init__()
@@ -56,12 +58,13 @@ class DeepLab(nn.Module):
         self.up_edsr_3 = EDSRConv(16,16)
         self.up_conv_last = nn.Conv2d(16,3,1)
 
-
+        self.involution=Involution2d(256,256)
         self.freeze_bn = freeze_bn
 
     def forward(self, input):
         x, low_level_feat = self.backbone(input)
         x = self.aspp(x)
+        x = self.involution(x)
         x_seg = self.decoder(x, low_level_feat)
         x_sr= self.sr_decoder(x, low_level_feat)
         x_seg_up = F.interpolate(x_seg, size=input.size()[2:], mode='bilinear', align_corners=True)
