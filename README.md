@@ -1,7 +1,7 @@
 # Dual super-resolution learning for semantic segmentation
 
 ## 2021-01-02 Subpixel Update
-Happy new year! The *2021-12-29 update* of SISR with subpixel conv performs bad in my experiment so I did some changes to it. 
+Happy new year! The *2020-12-29 update* of SISR with subpixel conv performs bad in my experiment so I did some changes to it. 
 
 **The former subpixel version is depreciated now.** Click [here](https://github.com/Dootmaan/DSRL/tree/subpixel) to learn more. If you are using the main branch then you can just ignore this message.
 
